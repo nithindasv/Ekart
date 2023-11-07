@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'includes/alerts.html' %}
+{% load static %}
+<div class="container">
+    <div class="row">
+      {% include 'includes/dashboard_sidebar.html' %}
+
+  <div class="content">
+      <div class="text-center">
+        <h4 class="quick">Edit Profile</h4>
+        <label class="line"></label>
+        
+    </div><br>
+    <div class="col-md-12">
+        <div class="contact-top">
+            <div >
+                <img src="{{user_profile.profile_picture.url}}" alt="Image not supporting" width="100" style="border-radius: 50%;">
+            </div>
+            <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                <div class="col-md-6 form-group">
+                    <span>First Name </span>		
+                    {{user_form.first_name}}						
+                </div>
+                <div class="col-md-6 form-group">
+                    <span>Last Name </span>		
+                    {{user_form.last_name}}						
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <span>Phone Number </span>		
+                    {{user_form.phone_number}}						
+                </div>
+                <div class="col-md-6">
+                    <span>Profile Picture</span>		
+                    {{profile_form.profile_picture}}					
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <span>Address line1</span>		
+                    {{profile_form.address_line1}}						
+                </div>
+                </div>
+                <div class="form-row">
+                <div class="col-md-12">
+                    <span>Address line2</span>		
+                    {{profile_form.address_line2}}					
+                </div>
+                </div>
+                <div class="form-row">
+                <div class="col-md-4">
+                    <span>City </span>		
+                    {{profile_form.city}}					
+                </div>
+                <div class="col-md-4">
+                    <span>State</span>		
+                    {{profile_form.state}}						
+                </div>
+                <div class="col-md-4">
+                    <span>Country</span>		
+                    {{profile_form.country}}					
+                </div>
+            </div>
+                <label class="hvr-skew-backward">
+                        <input type="submit" value="Save" >
+                </label>
+</form>						
+        </div>
+         
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'includes/alerts.html' %}
+{% load static %}
+<div class="container">
+    <div class="row">
+   {% include 'includes/dashboard_sidebar.html' %}
+
+  <div class="content">
+      <div class="text-center">
+        <h4 class="quick">Logged in as : <span >{{user.full_name}}</span></h4>
+        
+    </div><br>
+    <div class="col-md-12">
+          <div class="col-md-6">
+            <div class="panel panel-default text-center">
+                <div class="panel-heading">Total Orders</div>
+                <div class="panel-body">{{order_count}}</div>
+                <a href="{% url 'my_orders' %}">View Orders</a>
+              </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default text-center">
+                <div class="panel-body ">
+                    <img src="{{user_profile.profile_picture.url}}" alt="" height="40" width="50" style="border-radius: 50%;" >
+                    <p>{{user.email}}</p>
+                    <p>{{user.phone_number}}</p>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

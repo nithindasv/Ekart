@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="banner-top">
+  <div class="container">
+      <h1 style="color:black">Register</h1>
+      <label class="line"></label>
+      <h2 style="color:black"><a href="index.html">Home</a><label style="color:black">/</label>Register</h2>
+  </div>
+</div>
+<div class="container" style="margin: 0 auto;width: 70%;padding: 50px;background: #f7f1f1;margin-top: 40px;margin-bottom: 50px;">
+  <div class="row invoice row-printable">
+      <div class="col-md-12">
+          <!-- col-lg-12 start here -->
+          <div class="panel panel-default plain" id="dash_0">
+              <!-- Start .panel -->
+              <div class="panel-body p30">
+                <div class="login">
+                  {% include 'includes/alerts.html' %}
+                  <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                <div class="form-row">
+                  <div class="col-md-6 form-group">
+                    <i  class="glyphicon glyphicon-user"></i><span>First Name </span>		
+                      {{ form.first_name }}						
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <i  class="glyphicon glyphicon-user"></i><span>Last Name </span>		
+                      {{form.last_name}}						
+                  </div>
+              </div>
+              <div class="form-row">
+                  <div class="col-md-6 form-group">
+                    <i  class="glyphicon glyphicon-phone"></i> <span>Phone Number </span>		
+                      {{form.phone_number}}						
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <i  class="glyphicon glyphicon-envelope"></i> <span>Email </span>		
+                      {{form.email}}					
+                  </div>
+              </div><br>
+              <div class="form-row">
+                  <div class="col-md-6 form-group">
+                    <i class="glyphicon glyphicon-lock"></i> <span>Password</span>		
+                      {{ form.password }}
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <i class="glyphicon glyphicon-lock"></i><span>Confirm Password</span>		
+                      {{ form.confirm_password }}					
+                  </div>
+                  </div><br>
+                  <div class="text-center">
+                      <input class="btn btn-danger" type="submit" value="Register">
+                  </div>
+                  <div class="text-right">
+                    <a href="{% url 'login' %}" class="news-letter text-right">Don't have account?Login</a> 
+                  
+                 </div> 
+                 <div class="clearfix"> </div>
+          {{ form.email.errors }}
+                  {{ form.non_field_errors }}
+  </form>			
+         </div>
+                
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                
+ <br><br>
+
+{% endblock %}

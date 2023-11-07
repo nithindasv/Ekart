@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg">
+  
+    <div class="container">
+        {% if 'search' in request.path %}
+          <h2 class="title-page text-center">Search Result</h2>
+          <label class="line"></label>
+        {% else %}
+        <h2 class="title-page text-center">Our Store</h2>
+        <label class="line"></label>
+        {% endif %}
+        
+    </div> <!-- container //  -->
+    <br><br>
+    </section>
+    <!-- ========================= SECTION INTRO END// ========================= -->
+    
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <section class="section-content padding-y">
+    <div class="container">
+    
+    <div class="row">
+        <aside class="col-md-3">
+            
+    <div class="card">
+      <div class=" rsidebar span_1_of_left">
+        <h4 class="cate">Categories</h4>
+           <ul class="menu-drop">
+                        <li><a href="{% url 'store' %}"> All products </a></li>
+                        {% for category in links %}
+                    <li><a href="{{ category.get_url }}"> {{ category.category_name}} </a></li>
+                        {% endfor %}
+                    
+                    </ul>
+    
+                </div> <!-- card-body.// -->
+            <!-- filter-group  .// -->
+        
+            <section  class="sky-form">
+              <h4 class="cate">Discounts</h4>
+               <div class="row row1 scroll-pane">
+                 <div class="col col-4">
+                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10% (20)</label>
+                 </div>
+                 <div class="col col-4">
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>40% - 50% (5)</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (7)</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (2)</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other(50)</label>
+                 </div>
+               </div>
+             </section> 				 				 
+     
+             <section  class="sky-form">
+              <h4 class="cate">Brand</h4>
+                <div class="row row1 scroll-pane">
+                  <div class="col col-4">
+                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Roadstar</label>
+                  </div>
+                  <div class="col col-4">
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Levis</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Persol</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Edwin</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox" ><i></i>New Balance</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Paul Smith</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Ray-Ban</label>
+                  </div>
+                </div>
+             </section>	
+        
+    </div> <!-- card.// -->
+    
+        </aside> <!-- col.// -->
+        <main class="col-md-9">
+    
+    <header class="border-bottom mb-4 pb-3">
+            <div class="form-inline">
+                <span class="mr-md-auto"><b>{{product_count}}</b> Items found </span>
+                
+            </div>
+    </header><!-- sect-heading -->
+    
+    <div class="row">
+      {% if products %}
+        {% for p in products %}
+        <div class="col-md-4 item-grid simpleCart_shelfItem">
+          <div class=" mid-pop">
+            
+          <div class="pro-img">
+            <img src="{{p.images.url}}" class="img-responsive" style="height: 260px; width:300px" alt="">
+            <div class="zoom-icon ">
+            <a class="picture" href="{{p.images.url}}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+            <a href="{{ p.get_url }}"><i class="glyphicon glyphicon-menu-right icon"></i></a>
+            </div>
+            </div>
+            <div class="mid-1">
+            <div class="women">
+            <div class="women-top">
+              <span>Category</span><br>
+              <h6><a href="{{ p.get_url }}" class="title">{{p.product_name}}</a></h6>
+              </div>
+              <div class="img item_add">
+                <a href="#"><img src="{% static 'images/ca.png' %}" alt=""></a>
+              </div>
+              <div class="clearfix"></div>
+              </div>
+              <div class="mid-2">
+                <em class="item_price">${{p.price}}</em></p>
+                  <div class="block">
+                  <div class="starbox small ghosting"> </div>
+                </div>
+                
+                <div class="clearfix"></div>
+              </div>
+              
+            </div>
+          </div>
+          </div>
+    
+       {% endfor %}
+     {% else %}  
+       <div>
+           <h5>No result found. Please try again.</h5>
+       </div>
+     {% endif %}  
+    </div> <!-- row end.// -->
+    
+    
+    <nav class="mt-4" aria-label="Page navigation sample">
+        {% if products.has_other_pages %}
+      <ul class="pagination">
+        {% if products.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+        {% endif %}
+
+        {% for i in products.paginator.page_range %}
+           {% if products.number == i %}
+             <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+           {% else %}
+             <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+           {% endif %}
+        {% endfor %}   
+
+        {% if products.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Next</a></li>
+        {% else %}
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </nav>
+    
+        </main> <!-- col.// -->
+    
+    </div>
+    
+    </div> <!-- container .//  -->
+    </section>
+    
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+{% endblock %}
